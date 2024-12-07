@@ -1,76 +1,54 @@
-import hid
-import time
+#Handles reading inputs from a controller.
+import pygame
 
 class ControllerReader():
+    def __init__(self):
+        self.controller = None
+        self.joystick = None
+        self.controllerName = None
+        self.numAxes = None
+        self.numButtons = None
+        self.rightJoystickX = 0
+        self.rightJoystickY = 0
+        self.leftJoystickX = 0
+        self.leftJoystickY = 0
+        self.leftTrigger = 0
+        self.rightTrigger = 0
 
-    controller = 0
-
-    def openController(self, myDeviceName):
-        for device in hid.enumerate():
-            if(device['product_string'] == myDeviceName):
-                vid = device['vendor_id']
-                pid = device['product_id']
+    def openController(self):
+        pygame.init()
+        pygame.joystick.init()
         
-                self.controller = hid.Device(vid, pid)
+        self.joystick = pygame.joystick.Joystick(0)  
+        self.joystick.init()
 
-                return print("opened controller")
-        print(f"HID device named {myDeviceName} was not found.")
+        self.controllerName = self.joystick.get_name()
+        self.numAxes = self.joystick.get_numaxes()
+        self.numButtons = self.joystick.get_numbuttons()
+
+        print(f"Joystick name: {self.controllerName}")
+        print(f"Number of axes: {self.numAxes}")
+        print(f"Number of buttons: {self.numButtons}")
 
     def closeController(self):
         del self.controller
 
     def updateInputs(self):
-        
-        inputs = {}
-        report = self.controller.read(64)
-        if(report):
-            inputs['lb'] = bool(report[10] & 0x10)
-            inputs['rb'] = bool(report[10] & 0x20)
-            inputs['a'] = bool(report[10] & 0x1)
-            inputs['b'] = bool(report[10] & 0x2)
-            inputs['x'] = bool(report[10] & 0x8)
-            inputs['y'] = bool(report[10] & 0x4)
-            inputs['lthree'] = bool(report[11] & 0x1)
-            inputs['rthree'] = bool(report[11] & 0x2)
-            inputs['up'] = bool(report[11] & 0x4)
-            inputs['down'] = bool(report[11] & 0x14)
-            inputs['left'] = bool(report[11] & 0x1c)
-            inputs['right'] = bool(report[11] & 0xc)
-            inputs['zl'] = bool(report[9] == 255)  # something about this is wrong not sure what though (fixed but looks out of place)
-            inputs['zr'] = bool(report[9] & 0x0)
-            inputs['secondY'] = int(report[7]) #fully up is 0, down is 255
-            inputs['secondX'] = int(report[5]) # fully left is 0, right is 255
-            inputs['firstY'] = int(report[3])
-            inputs['firstX'] = int(report[1])
+        report = {}
 
-            # inputs['firstX'] = int(report[3])
-            # inputs['firstY'] = int(report[4])
-            # inputs['secondX'] = int(report[5])
-            # inputs['secondY'] = int(report[6])
-
-            return inputs
-            # report [6] appears to also be secondY
-            # report [4] also appears to be secondX
-            # report [8] is 0 if zr&zl are 0 and 0x80 if either is 1
+        if self.joystick:
+            for event in pygame.event.get():
+                if event.type == pygame.JOYAXISMOTION:
+                    self.leftJoystickX = self.joystick.get_axis(0)
+                    self.leftJoystickY = self.joystick.get_axis(1)
+                    self.rightJoystickX = self.joystick.get_axis(2) 
+                    self.rightJoystickY = self.joystick.get_axis(3)
             
-def viewAllHid():
-    
-    devices = []
+            report = {
+                        "leftJoystickX": self.leftJoystickX,
+                        "leftJoystickY": self.leftJoystickY,
+                        "rightJoystickX": self.rightJoystickX,
+                        "rightJoystickY": self.rightJoystickY
+                    }
 
-    for device in hid.enumerate():
-        if(device['product_string'] not in devices):
-            devices.append(device['product_string'])
-    
-    print(devices)
-
-if(__name__ == "__main__"):
-    viewAllHid()
-    
-    myDeviceName = "Controller (XBOX 360 For Windows)"
-    #myDeviceName = "Mayflash WiiU Pro Game Controller Adapter"
-    myReader = ControllerReader()
-    myReader.openController(myDeviceName)
-
-    while(True):
-        print(myReader.updateInputs())
-        time.sleep(0.5)
+        return report
