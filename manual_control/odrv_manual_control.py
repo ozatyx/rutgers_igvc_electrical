@@ -7,10 +7,14 @@ import time
 
 def init():
     print("finding odrive...")
-    odrv0 = odrive.find_any()
-    print("found odrive!")
-    odrv0.clear_errors()
 
+    try:
+        odrv0 = odrive.find_any()
+        print("found odrive!")
+        odrv0.clear_errors()
+    except KeyboardInterrupt:
+            print("Exiting...")
+            
     encoder0PreCalibrated = odrv0.axis0.encoder.config.pre_calibrated
     encoder1PreCalibrated = odrv0.axis1.encoder.config.pre_calibrated
     motor0PreCalibrated = odrv0.axis0.motor.config.pre_calibrated
@@ -62,7 +66,6 @@ def init():
     return odrv0
 
 if __name__ == "__main__":
-    print("starting!")
     myReader = controllerInputs.ControllerReader()
     myReader.openController()
     odrv0 = init()
