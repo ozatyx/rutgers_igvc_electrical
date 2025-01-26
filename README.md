@@ -1,4 +1,4 @@
-# Rutgers IGVC Auxiliary Control Systems
+# Rutgers IGVC Electrical Systems
 This repository houses all non-autonomous navigation code for the Rutgers IGVC team. Features include a manual control mode, current sensing, LED control, and wired/wireless E-Stop functionality. 
 
 ## Wiki
