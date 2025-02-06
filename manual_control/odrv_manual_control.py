@@ -37,28 +37,28 @@ def init():
 
     print("setting defaults:")
     odrv0.config.dc_max_negative_current = -30
-    odrv0.axis0.motor.config.current_lim = 30
+    odrv0.axis0.motor.config.current_lim = 60
     odrv0.axis0.motor.config.pole_pairs = 3
     odrv0.axis0.motor.config.torque_constant = 0.05
     odrv0.axis0.encoder.config.cpr = 4096
     odrv0.axis0.controller.config.input_filter_bandwidth = 2.0
     odrv0.axis0.controller.config.vel_integrator_gain = 0.16 # or something
     odrv0.axis0.controller.config.vel_gain = 0.045
-    odrv0.axis0.controller.config.vel_limit = 40
-    odrv0.axis0.controller.config.vel_ramp_rate = 40
+    odrv0.axis0.controller.config.vel_limit = 1000
+    odrv0.axis0.controller.config.vel_ramp_rate = 50
     odrv0.axis0.requested_state = AXIS_STATE_CLOSED_LOOP_CONTROL
     odrv0.axis0.controller.config.control_mode = CONTROL_MODE_VELOCITY_CONTROL
     odrv0.axis0.controller.config.input_mode = InputMode.VEL_RAMP
-
-    odrv0.axis1.motor.config.current_lim = 30
+    
+    odrv0.axis1.motor.config.current_lim = 60
     odrv0.axis1.motor.config.pole_pairs = 3
     odrv0.axis1.motor.config.torque_constant = 0.05
     odrv0.axis1.encoder.config.cpr = 4096
     odrv0.axis1.controller.config.input_filter_bandwidth = 2.0
     odrv0.axis1.controller.config.vel_integrator_gain = 0.16 # or something
     odrv0.axis1.controller.config.vel_gain = 0.045
-    odrv0.axis1.controller.config.vel_limit = 40
-    odrv0.axis1.controller.config.vel_ramp_rate = 40
+    odrv0.axis1.controller.config.vel_limit = 1000
+    odrv0.axis1.controller.config.vel_ramp_rate = 50
     odrv0.axis1.requested_state = AXIS_STATE_CLOSED_LOOP_CONTROL
     odrv0.axis1.controller.config.control_mode = CONTROL_MODE_VELOCITY_CONTROL
     odrv0.axis1.controller.config.input_mode = InputMode.VEL_RAMP

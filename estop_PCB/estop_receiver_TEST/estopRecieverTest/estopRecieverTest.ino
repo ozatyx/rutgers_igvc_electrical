@@ -78,7 +78,7 @@ void loop() {
     Serial.print("Changed pin state");
 
     //ADS1115 (THIS HAS NOT BEEN TESTED YET!)
-    ADS.setGain(0);
+    
 
     int16_t val = ADS.readADC(3);
 
