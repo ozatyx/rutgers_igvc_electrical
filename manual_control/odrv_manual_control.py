@@ -45,7 +45,7 @@ def init():
     odrv0.axis0.controller.config.vel_integrator_gain = 0.16 # or something
     odrv0.axis0.controller.config.vel_gain = 0.045
     odrv0.axis0.controller.config.vel_limit = 1000
-    odrv0.axis0.controller.config.vel_ramp_rate = 50
+    odrv0.axis0.controller.config.vel_ramp_rate = 30
     odrv0.axis0.requested_state = AXIS_STATE_CLOSED_LOOP_CONTROL
     odrv0.axis0.controller.config.control_mode = CONTROL_MODE_VELOCITY_CONTROL
     odrv0.axis0.controller.config.input_mode = InputMode.VEL_RAMP
@@ -58,7 +58,7 @@ def init():
     odrv0.axis1.controller.config.vel_integrator_gain = 0.16 # or something
     odrv0.axis1.controller.config.vel_gain = 0.045
     odrv0.axis1.controller.config.vel_limit = 1000
-    odrv0.axis1.controller.config.vel_ramp_rate = 50
+    odrv0.axis1.controller.config.vel_ramp_rate = 30
     odrv0.axis1.requested_state = AXIS_STATE_CLOSED_LOOP_CONTROL
     odrv0.axis1.controller.config.control_mode = CONTROL_MODE_VELOCITY_CONTROL
     odrv0.axis1.controller.config.input_mode = InputMode.VEL_RAMP
