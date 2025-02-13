@@ -48,7 +48,7 @@ void setup() {
   Serial.print("ADS1X15_LIB_VERSION: ");
   Serial.println(ADS1X15_LIB_VERSION);
   ADS.begin();
-  ADS.setGain(3); // Set gain to 2x for ±2V range, safe for the ESP32 3.3V logic
+  ADS.setGain? // Set gain to 2x for ±2V range, safe for the ESP32 3.3V logic
 }
 
 // callback function that will be executed when data is received
