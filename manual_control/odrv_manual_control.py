@@ -50,6 +50,7 @@ def init():
     odrv0.axis0.controller.config.control_mode = CONTROL_MODE_VELOCITY_CONTROL
     odrv0.axis0.controller.config.input_mode = InputMode.VEL_RAMP
     
+    
     odrv0.axis1.motor.config.current_lim = 60
     odrv0.axis1.motor.config.pole_pairs = 3
     odrv0.axis1.motor.config.torque_constant = 0.05
